@@ -1,6 +1,7 @@
 import { Component, effect, inject } from '@angular/core';
 import { Seo } from '../core/seo';
 import { PortfolioStore } from '../data/portfolio-store';
+import { ContactSection } from '../sections/contact-section';
 import { ProfileHero } from '../sections/profile-hero';
 import { ProjectsSection } from '../sections/projects-section';
 import { SkillsSection } from '../sections/skills-section';
@@ -8,11 +9,12 @@ import { TimelineSection } from '../sections/timeline-section';
 
 @Component({
   selector: 'app-home',
-  imports: [ProfileHero, SkillsSection, TimelineSection, ProjectsSection],
+  imports: [ProfileHero, SkillsSection, TimelineSection, ProjectsSection, ContactSection],
   template: `<app-profile-hero />
     <app-skills-section />
     <app-timeline-section />
-    <app-projects-section />`,
+    <app-projects-section />
+    <app-contact-section />`,
 })
 export class Home {
   private readonly store = inject(PortfolioStore);
