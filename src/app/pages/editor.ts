@@ -1,22 +1,34 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Seo } from '../core/seo';
+import { SkillsEditor } from '../editor/skills-editor';
 import { ProfileEditor } from '../editor/profile-editor';
 
-type Tab = 'perfil';
+const TABS = [
+  { id: 'perfil', label: 'Presentación' },
+  { id: 'habilidades', label: 'Habilidades' },
+] as const;
+
+type Tab = (typeof TABS)[number]['id'];
 
 @Component({
   selector: 'app-editor',
-  imports: [RouterLink, ProfileEditor],
+  imports: [RouterLink, ProfileEditor, SkillsEditor],
   template: `
     <div class="wrap section">
       <h1>Editar contenido</h1>
       <p class="lead">Los cambios se guardan en este navegador y se ven al instante en el sitio.</p>
       <p><a routerLink="/">‹ Ver el sitio</a></p>
       <nav aria-label="Secciones del editor" class="tabs">
-        <button type="button" class="btn small" [class.ghost]="tab() !== 'perfil'" [attr.aria-current]="tab() === 'perfil' ? 'page' : null" (click)="tab.set('perfil')">Presentación</button>
+        @for (t of tabs; track t.id) {
+          <button type="button" class="btn small" [class.ghost]="tab() !== t.id"
+            [attr.aria-current]="tab() === t.id ? 'page' : null" (click)="tab.set(t.id)">{{ t.label }}</button>
+        }
       </nav>
-      @if (tab() === 'perfil') { <app-profile-editor /> }
+      @switch (tab()) {
+        @case ('perfil') { <app-profile-editor /> }
+        @case ('habilidades') { <app-skills-editor /> }
+      }
     </div>
   `,
   styles: `
@@ -25,6 +37,7 @@ type Tab = 'perfil';
   `,
 })
 export class Editor {
+  protected readonly tabs = TABS;
   protected readonly tab = signal<Tab>('perfil');
 
   constructor() {
