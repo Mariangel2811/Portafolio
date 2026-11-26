@@ -2,10 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Seo } from '../core/seo';
 import { SkillsEditor } from '../editor/skills-editor';
+import { TimelineEditor } from '../editor/timeline-editor';
 import { ProfileEditor } from '../editor/profile-editor';
 
 const TABS = [
   { id: 'perfil', label: 'Presentación' },
+  { id: 'trayectoria', label: 'Trayectoria' },
   { id: 'habilidades', label: 'Habilidades' },
 ] as const;
 
@@ -13,7 +15,7 @@ type Tab = (typeof TABS)[number]['id'];
 
 @Component({
   selector: 'app-editor',
-  imports: [RouterLink, ProfileEditor, SkillsEditor],
+  imports: [RouterLink, ProfileEditor, TimelineEditor, SkillsEditor],
   template: `
     <div class="wrap section">
       <h1>Editar contenido</h1>
@@ -27,6 +29,7 @@ type Tab = (typeof TABS)[number]['id'];
       </nav>
       @switch (tab()) {
         @case ('perfil') { <app-profile-editor /> }
+        @case ('trayectoria') { <app-timeline-editor /> }
         @case ('habilidades') { <app-skills-editor /> }
       }
     </div>
