@@ -5,6 +5,7 @@ import { SkillsEditor } from '../editor/skills-editor';
 import { TimelineEditor } from '../editor/timeline-editor';
 import { ContactEditor } from '../editor/contact-editor';
 import { ProjectsEditor } from '../editor/projects-editor';
+import { DataTools } from '../editor/data-tools';
 import { ProfileEditor } from '../editor/profile-editor';
 
 const TABS = [
@@ -13,13 +14,14 @@ const TABS = [
   { id: 'trayectoria', label: 'Trayectoria' },
   { id: 'habilidades', label: 'Habilidades' },
   { id: 'proyectos', label: 'Proyectos' },
+  { id: 'datos', label: 'Respaldo' },
 ] as const;
 
 type Tab = (typeof TABS)[number]['id'];
 
 @Component({
   selector: 'app-editor',
-  imports: [RouterLink, ProfileEditor, ProjectsEditor, ContactEditor, TimelineEditor, SkillsEditor],
+  imports: [RouterLink, ProfileEditor, DataTools, ProjectsEditor, ContactEditor, TimelineEditor, SkillsEditor],
   template: `
     <div class="wrap section">
       <h1>Editar contenido</h1>
@@ -37,6 +39,7 @@ type Tab = (typeof TABS)[number]['id'];
         @case ('trayectoria') { <app-timeline-editor /> }
         @case ('habilidades') { <app-skills-editor /> }
         @case ('proyectos') { <app-projects-editor /> }
+        @case ('datos') { <app-data-tools /> }
       }
     </div>
   `,
