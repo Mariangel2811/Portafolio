@@ -1,59 +1,57 @@
-# Portafolio
+# Portafolio editable (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.3.0.
+Portafolio web con perfil, habilidades, trayectoria, proyectos y contacto. Todo el contenido sale de **un solo lugar** (`PortfolioStore`) y se edita desde la propia aplicación, sin tocar el código de las páginas.
 
-## Development server
+## Requisitos de la actividad
 
-To start a local development server, run:
+| Requisito | Dónde está |
+|---|---|
+| Presentación profesional | `sections/profile-hero.ts` |
+| Habilidades y trayectoria | `sections/skills-section.ts`, `sections/timeline-section.ts` |
+| Listado e información de cada proyecto | `sections/projects-section.ts`, `pages/project-detail.ts` |
+| Contacto con enlaces funcionales | `sections/contact-section.ts` |
+| Contenido editable y gestión de proyectos | `pages/editor.ts` + `editor/*` (ruta `/#/editar`) |
+| Cambios sin rediseñar | las vistas solo leen señales de `data/portfolio-store.ts` |
+| Navegación clara | cabecera con anclas, detalle con «Volver», proyecto inexistente controlado |
+| Diseño adaptable | CSS con grid/clamp, probado en 390 px y 1280 px |
+| Accesibilidad | salto al contenido, foco visible, etiquetas en formularios, `alt` editable, avisos con `role="status"`, `prefers-reduced-motion` |
+| Buscadores | título y descripción por página (`core/seo.ts`), `lang="es"`, título y descripción SEO editables |
 
-```bash
-ng serve
-```
+## Cómo se guarda el contenido
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Contenido inicial: `src/app/data/default-portfolio.ts`.
+- Los cambios hechos en «Editar contenido» se guardan en `localStorage` de **tu navegador**.
+- En la pestaña **Respaldo** puedes descargar/importar un JSON. Para que el sitio publicado muestre tu contenido a todos, pasa ese contenido a `default-portfolio.ts` y vuelve a desplegar.
 
-## Code scaffolding
+## Primeros pasos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. Abre `/#/editar` y reemplaza nombre, descripción, foto, correo y enlaces de cada proyecto (demostración y código son opcionales: si están vacíos no se muestran).
+2. Pasa lo editado a `default-portfolio.ts` antes de desplegar.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Desarrollo
 
 ```bash
-ng test
+npm install
+npm start          # http://localhost:4200
+npm test           # pruebas del store (Vitest)
+npm run build      # dist/portafolio/browser
 ```
 
-## Running end-to-end tests
+## Despliegue
 
-For end-to-end (e2e) testing, run:
+Las rutas usan `#`, así que funciona en cualquier hosting estático sin reglas de reescritura.
 
-```bash
-ng e2e
+- **GitHub Pages**: en *Settings → Pages* elige *GitHub Actions*. `.github/workflows/deploy.yml` prueba, compila y publica en cada push a `main`.
+- **Netlify / Vercel / otro**: comando `npm run build`, carpeta `dist/portafolio/browser`.
+
+## Estructura
+
 ```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+src/app
+├── core/       seo, ids, procesamiento de imágenes
+├── data/       modelo, contenido inicial y store (única fuente de datos)
+├── layout/     cabecera y pie
+├── sections/   bloques de la página de inicio
+├── pages/      inicio, detalle de proyecto, editor
+└── editor/     formularios de edición y respaldo
+```
