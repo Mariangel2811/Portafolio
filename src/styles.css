@@ -78,3 +78,18 @@ a:hover { color: var(--ink); }
   html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
 }
+
+/* ---------- Formularios del editor ---------- */
+.field { display: grid; gap: .3rem; margin-bottom: 1rem; }
+.field > label, .field > .label { font-weight: 600; font-size: .95rem; }
+.field small { color: var(--muted); }
+input[type='text'], input[type='url'], textarea, select {
+  width: 100%; padding: .6rem .75rem; font: inherit; color: var(--ink);
+  background: var(--surface); border: 2px solid var(--line); border-radius: 10px;
+}
+input:hover, textarea:hover, select:hover { border-color: var(--muted); }
+textarea { min-height: 6.5rem; resize: vertical; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.25rem; }
+.row-actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.status { min-height: 1.5rem; color: var(--accent); font-weight: 600; margin: .75rem 0 0; }
+.two { display: grid; gap: 0 1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
