@@ -4,6 +4,7 @@ import { Seo } from '../core/seo';
 import { SkillsEditor } from '../editor/skills-editor';
 import { TimelineEditor } from '../editor/timeline-editor';
 import { ContactEditor } from '../editor/contact-editor';
+import { ProjectsEditor } from '../editor/projects-editor';
 import { ProfileEditor } from '../editor/profile-editor';
 
 const TABS = [
@@ -11,13 +12,14 @@ const TABS = [
   { id: 'contacto', label: 'Contacto' },
   { id: 'trayectoria', label: 'Trayectoria' },
   { id: 'habilidades', label: 'Habilidades' },
+  { id: 'proyectos', label: 'Proyectos' },
 ] as const;
 
 type Tab = (typeof TABS)[number]['id'];
 
 @Component({
   selector: 'app-editor',
-  imports: [RouterLink, ProfileEditor, ContactEditor, TimelineEditor, SkillsEditor],
+  imports: [RouterLink, ProfileEditor, ProjectsEditor, ContactEditor, TimelineEditor, SkillsEditor],
   template: `
     <div class="wrap section">
       <h1>Editar contenido</h1>
@@ -34,6 +36,7 @@ type Tab = (typeof TABS)[number]['id'];
         @case ('contacto') { <app-contact-editor /> }
         @case ('trayectoria') { <app-timeline-editor /> }
         @case ('habilidades') { <app-skills-editor /> }
+        @case ('proyectos') { <app-projects-editor /> }
       }
     </div>
   `,
